@@ -4,7 +4,7 @@
 **MIT license**
 
 ## Quick description
-This package is an api to help you connect a Flask server to Facebook Messenger using minimum amount of code (two lines actually 🙂)
+This package is an api to help you connect a Flask server to Facebook Messenger using minimum amount of code (two lines actually)
 
 This package currently supports all facebook messenger's basic event :
 - messages : text, attachments (locations, images) and echoes
