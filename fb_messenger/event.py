@@ -3,7 +3,6 @@ This file contains the class Event used to handle events received on your app
 """
 from requests import get, post
 from typing import Callable
-from .callback_manager import CallbackManager, default_callbacks
 
 
 class Event:
@@ -19,7 +18,6 @@ class Event:
     - optin
     """
 
-    callback_manager = CallbackManager(default_callbacks=default_callbacks)
     REPLY_URI = '/me/messages'
     GRAPH_URL = 'graph.facebook.com/v2.6'
 
@@ -60,16 +58,6 @@ class Event:
         event.raw = json_data
         return event
 
-    def get_callback(self) -> Callable:
-        """
-        Function that returns the callback triggered by this event (event_type)
-
-        Returns:
-            the callable function (callback) that will be triggered by this
-            event (event_type)
-        """
-        return Event.callback_manager.get_callback(self.event_type)
-
     def user_info(self) -> dict:
         req = get(url="https://{graph_url}/{sender_id}"
                   .format(
@@ -85,8 +73,7 @@ class Event:
 
     def reply(self, msg: dict) -> None:
         """
-        This function can be used to send a response to the user linked to the
-        event.
+        This function allows sending a message to the user that triggered the event.
 
         Args:
             msg (dict): the content of the message to send back to the user

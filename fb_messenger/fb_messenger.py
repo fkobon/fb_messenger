@@ -5,6 +5,7 @@ Messenger in one line of code.
 
 from flask import request, Response, Flask  # type: ignore
 from .event import Event
+from .callback_manager import CallbackManager, default_callbacks
 
 
 class FbMessenger:
@@ -30,6 +31,7 @@ class FbMessenger:
                          methods=['GET'])
         app.add_url_rule(uri, 'fb_callback', self.__handle_message_endpoint,
                          methods=['POST'])
+        self.callback_manager = CallbackManager(default_callbacks=default_callbacks)
 
     def __register_app_endpoint(self) -> Response:
         """
@@ -57,7 +59,7 @@ class FbMessenger:
                 for message in entry['messaging']:
                     event = Event.from_json(message, page_id,
                                             self.page_access_token)
-                    callback = event.get_callback()
+                    callback = self.callback_manager.get_callback(event.event_type)
                     callback(event)
         except Exception as err:
             print(err)
