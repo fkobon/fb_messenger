@@ -45,9 +45,9 @@ class CallbackManager:
             None if the arguments are correct, raises an error otherwise.
 
         """
-        if len(getfullargspec(callback).args) != 1:
-            raise ValueError("Callback function must have one argument only "
-                             "of type Event")
+        if not (0 < len(getfullargspec(callback).args) < 3):
+            raise ValueError("Callback function must have one argument or two in case of "
+                             "a class function of type Event")
 
         if caller_type in self.callbacks:
             if callable(callback):
