@@ -71,6 +71,18 @@ class Event:
                   )
         return req.json()
 
+    def signal(self, signal_type: str) -> None:
+        signal = {
+            'recipient': {
+                'id': self.sender_id,
+            },
+            'sender_action': signal_type
+        }
+        post('https://{graph_url}{reply_uri}?access_token={token}'
+             .format(graph_url=self.GRAPH_URL,
+                     reply_uri=self.REPLY_URI,
+                     token=self.page_token), json=signal)
+
     def reply(self, msg: dict) -> None:
         """
         This function allows sending a message to the user that triggered the event.
