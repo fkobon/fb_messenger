@@ -17,6 +17,11 @@ see [Facebook Messenger Webhook documentation](https://developers.facebook.com/d
 
 ## How to use
 
+### install 
+
+as simple as :
+ `pip install git+git://github.com/yourName/repoName.git#egg=repoName`
+
 ### Plug and play
 To create your python-flask backend to Facebook, you must have a Facebook Page and an app with a Webhook subscription.
 
