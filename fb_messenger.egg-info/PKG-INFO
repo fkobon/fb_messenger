@@ -26,6 +26,11 @@ Description: # Facebook Messenger API
         
         ## How to use
         
+        ### install 
+        
+        as simple as :
+         `pip install git+git://github.com/juliennassar/fb_messenger.git#egg=fb_messenger`
+        
         ### Plug and play
         To create your python-flask backend to Facebook, you must have a Facebook Page and an app with a Webhook subscription.
         

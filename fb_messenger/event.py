@@ -100,3 +100,27 @@ class Event:
              .format(graph_url=self.GRAPH_URL,
                      reply_uri=self.REPLY_URI,
                      token=self.page_token), json=data)
+
+    def send_file(self, data: dict) -> None:
+        """
+        This function allows sending files to the user that triggered the event.
+
+        Args:
+            data (dict): form-data files to send back to the user
+        """
+        data = {
+            'recipient': {
+                'id': self.sender_id,
+            },
+            'message': {
+                "attachment": {
+                    "type": "image",
+                    "payload": { "is_reusable": False }
+                }
+            },
+            'filedata': '@{path};type=image/{type}'.format(path=data.path, type=data.type),
+        }
+        post('https://{graph_url}{reply_uri}?access_token={token}'
+             .format(graph_url=self.GRAPH_URL,
+                     reply_uri=self.REPLY_URI,
+                     token=self.page_token), data=data)
